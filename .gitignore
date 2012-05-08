@@ -1,4 +1,11 @@
+<<<<<<< HEAD
+*.py[cod]
+
+# C extensions
+*.so
+=======
 *.py[co]
+>>>>>>> d6bc50cfe41a173ea393dc17978839dbf601344d
 
 # Packages
 *.egg
@@ -12,6 +19,11 @@ var
 sdist
 develop-eggs
 .installed.cfg
+<<<<<<< HEAD
+lib
+lib64
+=======
+>>>>>>> d6bc50cfe41a173ea393dc17978839dbf601344d
 
 # Installer logs
 pip-log.txt
@@ -19,9 +31,17 @@ pip-log.txt
 # Unit test / coverage reports
 .coverage
 .tox
+<<<<<<< HEAD
+nosetests.xml
+=======
+>>>>>>> d6bc50cfe41a173ea393dc17978839dbf601344d
 
 #Translations
 *.mo
 
 #Mr Developer
+<<<<<<< HEAD
 .mr.developer.cfg
+=======
+.mr.developer.cfg
+>>>>>>> d6bc50cfe41a173ea393dc17978839dbf601344d

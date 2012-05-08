@@ -1,0 +1,13 @@
+sqlite engine for storing and performing metrics
+
+graphs using RDTool or python tool
+
+cherrypy to display the information
+
+threading for graphs and cherrypy
+
+interval for use as a daemon
+
+create daemonized script
+
+find a way to export graphs instead of daemonizing them
