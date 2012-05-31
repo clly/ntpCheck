@@ -24,7 +24,7 @@
 #############################################################
 
 
-import ntplib, random, smtplib, socket, sys, os		#used for random numbers, ntp messages, and sending email
+import ntplib, random, smtplib, socket, sys, os, getopt		#used for random numbers, ntp messages, and sending email
 from time import ctime							#used to change seconds from a date into human readable
 from email.mime.text import MIMEText			#used to create email message
 from os import path
@@ -48,8 +48,8 @@ class NTPInfo:
 		self.dstEmail = config['dstEmail']
 		self.smtp = config['smtpServer'][0].strip()
 	
-	def readConfig(self, fn='ntpCheck.ini'):
-		fn = 'ntpCheck.ini'
+	def readConfig(self, fn='ntpCheck.config'):
+		fn = 'ntpCheck.config'
 		conf = {}
 
 		with file(fn) as fp:
@@ -159,7 +159,7 @@ def main():
 		info.sendEmail(message)
 
 def printConf():
-	fn = 'ntpCheck.ini'
+	fn = 'ntpCheck.config'
 	conf = {}
 
 	print("\nConfiguration File Contents:\n")
@@ -171,7 +171,15 @@ def printConf():
 			print("\t" + str)
 		
 if __name__ == '__main__':
-	if(path.exists("ntpCheck.ini")):
+	config = "ntpCheck.config"
+
+	try:
+		opts, args = getopt.getopt(argv, "hcC:", ["help", "show-config", "Config"])
+	except: getopt.GetoptError:
+		usage()
+		sys.exit(2)
+
+	if(path.exists(config)):
 		if("-c" in sys.argv):
 			printConf()
 			sys.exit(0)
