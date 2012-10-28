@@ -28,6 +28,7 @@ import ntplib, random, smtplib, socket, sys, os		#used for random numbers, ntp m
 from time import ctime							#used to change seconds from a date into human readable
 from email.mime.text import MIMEText			#used to create email message
 from os import path
+from loglib import logger
 
 class NTPInfo:
 	def __init__(self):
@@ -132,7 +133,7 @@ def main():
 	elif(msg):
 		info.sendEmail(msg, subject="Unable to contact an external NTP Server")
 	s = False
-
+	logs = logger(".\\logs", "ntpCheck.log")
 	accptOffset = info.accptOffset		# acceptable offset in seconds.  Set as negative because of absolute value
 	offset = info.intTime - info.extTime
 	dcOffset = info.dcTime - info.extTime
@@ -146,6 +147,7 @@ def main():
 		message = "\nThe internal NTP server " + info.internal + " is at an acceptable offset by " + str(offset) + " from " \
 		+ info.external + "\n\tOffset: " + str(offset) + "\n\tInternal Time: " + ctime(info.intTime) \
 		+ "\n\tExternal Time: " + ctime(info.extTime) + "\n"
+	logs.write(message)
 	if(dcOffset < accptOffset or dcOffset > abs(accptOffset)):
 		message += "\nThe time for domain controller " + info.dc + " is off by " + str(dcOffset) + " from "\
 			+ info.external + "\n\tOffset: " + str(dcOffset) + "\n\tExternal time: " \
@@ -157,6 +159,7 @@ def main():
 			+ ctime(info.extTime).center(27) + "\n\tDC Time:\t " + ctime(info.dcTime)
 	if(s):
 		info.sendEmail(message)
+	logs.write(message)
 
 def printConf():
 	fn = 'ntpCheck.ini'
